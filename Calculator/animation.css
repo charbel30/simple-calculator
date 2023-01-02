@@ -1,0 +1,68 @@
+.buttons::before,
+.buttons > .button-border {
+  opacity: 0;
+  transition: opacity 500ms;
+  top: 0px;
+  left: 0px;
+  content: "";
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  position: absolute;
+  border-radius: inherit;
+}
+.buttons::before {
+  background: radial-gradient(
+    1000px circle at var(--mouse-x) var(--mouse-y),
+    rgba(135, 135, 135, 0.06),
+    transparent 40%
+  );
+  z-index: 3;
+}
+.buttons .button-border {
+  transition: ease-out 1s;
+  background: radial-gradient(
+    500px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.5),
+    transparent 40%
+  );
+
+  z-index: 1;
+}
+.equal > .button-border {
+  transition: ease-out 1s;
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    rgba(16, 235, 159, 1),
+    transparent 40%
+  );
+  z-index: 1;
+}
+
+
+.buttons:hover::before,
+.buttons:hover > .button-border {
+  opacity: 1;
+}
+
+.buttons .button-content {
+  border-radius: inherit;
+  margin: 1px;
+  height: calc(100% - 2px);
+  width: calc(100% - 2px);
+  position: relative;
+  z-index: 2;
+}
+
+.buttons:hover {
+  box-shadow: 0px 15px 25px -5px rgba(darken(rgb(219, 219, 219), 40%));
+  transform: scale(1.03);
+  transition: ease-in-out 0.1s;
+}
+.buttons:active {
+  box-shadow: 0px 4px 8px rgba(darken(dodgerblue, 30%));
+  transition: ease-in-out 0.1s;
+  transform: scale(0.98);
+}
+
+/*   qdfqwfqwfqwfqf*/

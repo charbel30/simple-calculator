@@ -46,15 +46,16 @@ width: 100%;
 
   grid-area: "display";
 }
-.calculator_buttons {
-  grid-area: "calculator_buttons";
-}
-button {
+
+.buttons {
+  position: relative;
+ border-radius: 4px;
   font-size: 35px;
- 
-  padding: 10px;
-  margin: 10px;
+  border: none;
+  padding: 1.6px;
+  margin: 13px;
   color: aliceblue;
+  cursor: pointer;
 }
 .buttons_row1 {
   display: grid;
@@ -100,3 +101,5 @@ button {
 .equal {
   color: #10eb9f;
 }
+
+ 

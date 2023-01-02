@@ -1,50 +1,114 @@
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+let runningTotal = 0;
+let buffer = "0";
+let previousOperator;
+const screen = document.querySelector(".display");
 
-//create a calculator app
-//that can add, subtract, multiply, and divide
-//create a function that takes in two numbers and an operator
-//return the result of the calculation
-const button = document.querySelectorAll(".button");
-const display = document.querySelector(".display");
-const clear = document.querySelector(".clear");
-const equal = document.querySelector(".equal");
 
-const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-const operators = ["+", "-", "*", "/"];
-let values;
+function buttonClick(value) {
+  if (isNaN(parseInt(value))) {
+    handleSymbol(value);
+  } else {
+    handleNumber(value);
+  }
+  rerender();
+}
 
-button.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    if (e.target.innerText === "C") {
-      display.innerText = "0";
-    }
-    for (let i = 0; i < numbers.length; i++) {
-      if (e.target.innerText === numbers[i]) {
-        display.innerText += parseInt(e.target.innerText);
-        display.innerText = parseInt(display.innerText);
+function handleNumber(value) {
+  if (buffer === "0") {
+    buffer = value;
+  } else {
+    buffer += value;
+  }
+}
 
+function handleMath(value) {
+  if (buffer === "0") {
+    // do nothing
+    return;
+  }
+
+  const intBuffer = parseInt(buffer);
+  if (runningTotal === 0) {
+    runningTotal = intBuffer;
+  } else {
+    flushOperation(intBuffer);
+  }
+
+  previousOperator = value;
+
+  buffer = "0";
+}
+
+function flushOperation(intBuffer) {
+  if (previousOperator === "+") {
+    runningTotal += intBuffer;
+  } else if (previousOperator === "−") {
+    runningTotal -= intBuffer;
+  } else if (previousOperator === "×") {
+    runningTotal *= intBuffer;
+  } else if (previousOperator === "÷") {
+    runningTotal /= intBuffer;
+  }
+}
+
+function handleSymbol(value) {
+  switch (value) {
+    case "C":
+      buffer = "0";
+      runningTotal = 0;
+      break;
+    case "=":
+      if (previousOperator === null) {
+        // need two numbers to do math
+        return;
       }
-    }
-  });
+      flushOperation(parseInt(buffer));
+      previousOperator = null;
+      buffer = +runningTotal;
+      runningTotal = 0;
+      break;
+    case "←":
+      if (buffer.length === 1) {
+        buffer = "0";
+      } else {
+        buffer = buffer.substring(0, buffer.length - 1);
+      }
+      break;
+    case "+":
+    case "−":
+    case "×":
+    case "÷":
+      handleMath(value);
+      break;
+  }
+}
 
-  button.addEventListener("click", (e) => {
-    if (e.target.innerText === "+") {
-      let value = add(parseInt(display.innerText), parseInt(display.innerText));
+function rerender() {
+  screen.innerText = buffer;
+}
 
-      console.log(parseInt(value));
-    }
-  });
-});
+function init() {
+  var buttons = document.querySelectorAll("button");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function (e) {
+      buttonClick(this.innerText);
+    });
+  }
+}
 
-//clear.addEventListener('click', () => {
-//   display.innerHTML = '0';
-//});
+const handleOnMouseMove = e => {
+  const {currentTarget: target } = e;
+  const rect = target.getBoundingClientRect(),
+        x = e.clientX - rect.left,
+        y = e.clientY - rect.top;
+        target.style.setProperty('--mouse-x', `${x}px`);
+        target.style.setProperty('--mouse-y', `${y}px`);
+       
+}
+for(const buttons of document.querySelectorAll('.buttons')) {
+  buttons.onmousemove = e => handleOnMouseMove(e);
+}
 
-equal.addEventListener("click", () => {
-  display;
-});
+ 
 
-console.log(add(1, 2));
+init();
