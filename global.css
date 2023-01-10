@@ -22,14 +22,20 @@
 
   font-size: larger;
 }
+div{
+  width: 100vw;
+  height: 100vh;
+}
 .body {
+
+
   display: grid;
   grid-template-areas:
     "display"
     "calculator_buttons";
   grid-gap: 10px;
   padding: 10px;
-  margin: 10px;
+  margin: 0px;
   margin-bottom: auto;
   align-items: center;
 width: 100%;
