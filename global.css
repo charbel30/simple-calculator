@@ -22,10 +22,6 @@
 
   font-size: larger;
 }
-div{
-  width: 100vw;
-  height: 100vh;
-}
 .body {
 
 
@@ -38,7 +34,8 @@ div{
   margin: 0px;
   margin-bottom: auto;
   align-items: center;
-width: 100%;
+  width: 95vw;
+  height: 89vh;
 
 }
 .display {
